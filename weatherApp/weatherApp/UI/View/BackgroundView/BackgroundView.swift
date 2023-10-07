@@ -39,9 +39,7 @@ final class BackgroundView: View {
         }
     }
     
-    override func setupView() {
-        super.setupView()
-        
-        backgroundImageView.image = Style.Images.background.image
+    func addImage(_ image: UIImage?) {
+        backgroundImageView.image = image
     }
 }

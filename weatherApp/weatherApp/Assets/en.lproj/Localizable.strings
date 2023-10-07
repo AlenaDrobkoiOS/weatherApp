@@ -14,3 +14,5 @@
 "Global.noElementsWarning" = "No elements found";
 "Global.countWarning" = "Can't count elements";
 "Global.cityTitle" = "CITIES";
+"Global.search" = "Search";
+"Global.searchInfo" = "Enter city, postcode or airoport location";

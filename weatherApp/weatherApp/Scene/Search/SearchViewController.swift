@@ -1,5 +1,5 @@
 //
-//  CitySelectorViewController.swift
+//  SearchViewController.swift
 //  weatherApp
 //
 //  Created by Alena Drobko on 07.10.23.
@@ -10,16 +10,18 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-/// CitySelector screen controller
-final class CitySelectorViewController: ViewController<BaseCitySelectorViewModel> {
+/// Search screen controller
+final class SearchViewController: ViewController<BaseSearchViewModel> {
     
     // MARK: - UI elements
     
     private let containerView = UIView()
     private let backgroundView = BackgroundView()
-    private let headerView = HeaderView()
+    private let searchBar = UISearchBar()
     private let tableView = UITableView()
     private let activityIndicatorView = UIActivityIndicatorView()
+    
+    private var dismissed = PublishSubject<Void>()
     
     private lazy var viewSpinner: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
@@ -35,6 +37,14 @@ final class CitySelectorViewController: ViewController<BaseCitySelectorViewModel
     
     // MARK: - Set Up VC
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isBeingDismissed {
+            self.dismissed.onNext(())
+        }
+    }
+    
     override func setupNavigationBar() {
         super.setupNavigationBar()
         
@@ -45,7 +55,7 @@ final class CitySelectorViewController: ViewController<BaseCitySelectorViewModel
         super.setupConstraints()
         
         view.addSubview(containerView)
-        [backgroundView, headerView, tableView, activityIndicatorView]
+        [backgroundView, searchBar, tableView, activityIndicatorView]
             .forEach { view in
                 containerView.addSubview(view)
             }
@@ -62,14 +72,13 @@ final class CitySelectorViewController: ViewController<BaseCitySelectorViewModel
             make.edges.equalToSuperview()
         }
         
-        headerView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
+        searchBar.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
             make.left.right.equalToSuperview()
-            make.height.equalTo(54)
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(20)
+            make.top.equalTo(searchBar.snp.bottom).offset(20)
             make.bottom.left.right.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -77,11 +86,13 @@ final class CitySelectorViewController: ViewController<BaseCitySelectorViewModel
     override func setupView() {
         super.setupView()
         
-        backgroundView.addImage(Style.Images.background.image)
+        searchBar.delegate = self
+        searchBar.searchBarStyle = .minimal
+        searchBar.searchTextField.clearButtonMode = .never
+        searchBar.showsCancelButton = true
         
-        headerView.render(with:
-                .init(title: Localizationable.Global.cityTitle.localized,
-                      rightButtonState: .right))
+        searchBar.placeholder = Localizationable.Global.search.localized
+        searchBar.prompt = Localizationable.Global.searchInfo.localized
     }
     
     override func setupScrollCollection() {
@@ -99,15 +110,17 @@ final class CitySelectorViewController: ViewController<BaseCitySelectorViewModel
     override func setupOutput() {
         super.setupOutput()
         
-        let input = BaseCitySelectorViewModel.Input(
-            addTapped: headerView.rightButton.rx.tap.asObservable(),
+        let input = BaseSearchViewModel.Input(
+            cancelTapped: searchBar.rx.cancelButtonClicked.asObservable(),
             citySelected: tableView.rx.itemSelected.asObservable(),
+            textUpdated: searchBar.rx.value.asObservable(),
+            dismissed: dismissed.asObserver(),
             disposeBag: disposeBag)
         
         viewModel.transform(input, outputHandler: setupInput(input:))
     }
     
-    override func setupInput(input: BaseCitySelectorViewModel.Output) {
+    override func setupInput(input: BaseSearchViewModel.Output) {
         super.setupInput(input: input)
         
         disposeBag.insert(
@@ -139,5 +152,11 @@ final class CitySelectorViewController: ViewController<BaseCitySelectorViewModel
                     activityIndicatorView.stopAnimating()
                 }
             }
+    }
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
     }
 }

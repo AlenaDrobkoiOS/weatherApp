@@ -1,5 +1,5 @@
 //
-//  CitySelectorTableViewCell.swift
+//  CityTableViewCell.swift
 //  weatherApp
 //
 //  Created by Alena Drobko on 07.10.23.
@@ -9,8 +9,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-/// CitySelector screen cell - contains title, history and details buttons
-final class CitySelectorTableViewCell: TableViewCell {
+/// City cell - contains title, history and details buttons
+final class CityTableViewCell: TableViewCell {
     
     private let containerView = UIView()
     private let titleLabel = UILabel()
@@ -79,8 +79,11 @@ final class CitySelectorTableViewCell: TableViewCell {
         historyButton.setImage(Style.Images.info.image, for: .normal)
     }
     
-    func render(_ model: CitySelectorCellModel) {
+    func render(_ model: CityCellModel) {
         titleLabel.text = model.title
+    
+        detailsButton.isHidden = !model.isButtonsVisible
+        historyButton.isHidden = !model.isButtonsVisible
         
         detailsButton.rx.tap
             .bind(to: model.rx.detailsTapEvent)

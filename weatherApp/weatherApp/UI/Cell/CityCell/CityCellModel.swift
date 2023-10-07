@@ -1,5 +1,5 @@
 //
-//  CitySelectorCellModel.swift
+//  CityCellModel.swift
 //  weatherApp
 //
 //  Created by Alena Drobko on 07.10.23.
@@ -9,19 +9,17 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-/// CitySelector screen cell data model
-final class CitySelectorCellModel: ReactiveCompatible {
+/// City cell data model
+final class CityCellModel: ReactiveCompatible {
     let title: String?
+    let isButtonsVisible: Bool
     
     fileprivate let historyTapEvent = PublishSubject<Void>()
     fileprivate let detailsTapEvent = PublishSubject<Void>()
     
-    init(title: String?) {
+    init(title: String?, isButtonsVisible: Bool) {
         self.title = title
-    }
-    
-    init(data: City) {
-        self.title = data.name
+        self.isButtonsVisible = isButtonsVisible
     }
     
     // MARK: - View Model Output
@@ -37,7 +35,7 @@ final class CitySelectorCellModel: ReactiveCompatible {
 
 // MARK: - Reactive Ext
 
-extension Reactive where Base: CitySelectorCellModel {
+extension Reactive where Base: CityCellModel {
     var historyTapEvent: Binder<Void> {
         return Binder(base) { base, _ in
             base.historyTapEvent.onNext(())

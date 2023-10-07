@@ -35,22 +35,12 @@ final class CitySelectorCoordinator: Coordinator<Void> {
                 self.openSearch()
             }
             .bind { result in
-                //                switch result {
-                //                case .dismiss:
-                //                    print("Details screen dismissed")
-                //                }
-            }
-            .disposed(by: disposeBag)
-        
-        viewModel.openDetails
-            .flatMap { city in
-                self.openDetails(with: city)
-            }
-            .bind { result in
-                //                switch result {
-                //                case .dismiss:
-                //                    print("Details screen dismissed")
-                //                }
+                switch result {
+                case .dismiss:
+                    print("Details screen dismissed")
+                case .details(let city):
+                    viewModel.openDetails.onNext(city)
+                }
             }
             .disposed(by: disposeBag)
         
@@ -77,7 +67,10 @@ final class CitySelectorCoordinator: Coordinator<Void> {
         return .just(())
     }
     
-    private func openSearch() -> Observable<Void> {
-        return .just(())
+    private func openSearch() -> Observable<SearchCoordinatorResult> {
+        let coordinator = SearchCoordinator(injections:
+                .init(navigationController: navigationController,
+                      serviceHolder: serviceHolder))
+        return coordinate(to: coordinator)
     }
 }
