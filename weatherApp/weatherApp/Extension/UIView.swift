@@ -38,4 +38,15 @@ extension UIView {
         superview?.layoutIfNeeded()
         setCornersRadius(frame.width / 2)
     }
+    
+    func addShadowAndRadius(color: UIColor = UIColor.black,
+                            shadowOpacity: Float = 0.1,
+                            cornerRadius: CGFloat = 10) {
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
+        self.layer.masksToBounds = false
+        self.layer.shadowRadius = 10.0
+        self.layer.shadowOpacity = shadowOpacity
+        self.layer.cornerRadius = cornerRadius
+    }
 }

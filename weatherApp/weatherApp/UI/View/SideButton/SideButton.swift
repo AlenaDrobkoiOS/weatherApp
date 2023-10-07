@@ -30,12 +30,12 @@ final class SideButton: UIButton {
             
             switch sideButtonState {
             case .left:
-                self.layer.maskedCorners = [.layerMinXMinYCorner,
-                                            .layerMinXMaxYCorner]
-                self.setImage(Style.Images.arrowLeft.image, for: .normal)
-            case .right:
                 self.layer.maskedCorners = [.layerMaxXMaxYCorner,
                                             .layerMaxXMinYCorner]
+                self.setImage(Style.Images.arrowLeft.image, for: .normal)
+            case .right:
+                self.layer.maskedCorners = [.layerMinXMinYCorner,
+                                            .layerMinXMaxYCorner]
                 self.setImage(Style.Images.plus.image, for: .normal)
             case .modal:
                 self.layer.maskedCorners = [.layerMaxXMaxYCorner]
@@ -54,15 +54,9 @@ final class SideButton: UIButton {
     }
     
     func setUpUI() {
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 10.0)
-        self.layer.masksToBounds = false
-        self.layer.shadowRadius = 10.0
-        self.layer.shadowOpacity = 0.25
-        
-        self.layer.cornerRadius = 20
-        
         self.imageView?.tintColor = .white
         self.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+        
+        self.addShadowAndRadius(shadowOpacity: 0.25, cornerRadius: 20)
     }
 }

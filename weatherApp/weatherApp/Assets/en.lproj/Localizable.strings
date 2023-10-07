@@ -16,3 +16,8 @@
 "Global.cityTitle" = "CITIES";
 "Global.search" = "Search";
 "Global.searchInfo" = "Enter city, postcode or airoport location";
+"Global.footerText" = "WEATHER INFORMATION FOR CITY RECEIVED ON";
+"Global.description" = "DESCRIPTION";
+"Global.temperature" = "TEMPERATURE";
+"Global.humidity" = "HUMIDITY";
+"Global.windspeed" = "WINDSPEED";

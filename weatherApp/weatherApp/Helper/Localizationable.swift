@@ -32,5 +32,10 @@ enum Localizationable {
         case countWarning = "Global.countWarning"
         case search = "Global.search"
         case searchInfo = "Global.searchInfo"
+        case footerText = "Global.footerText"
+        case description = "Global.description"
+        case temperature = "Global.temperature"
+        case humidity = "Global.humidity"
+        case windspeed = "Global.windspeed"
     }
 }

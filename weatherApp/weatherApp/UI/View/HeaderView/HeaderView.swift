@@ -20,9 +20,9 @@ final class HeaderView: View {
         super.setupConstraints()
         
         self.addSubview(stackView)
-        stackView.addArrangedSubview(rightButton)
-        stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(leftButton)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(rightButton)
         
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -49,6 +49,7 @@ final class HeaderView: View {
     
     func render(with model: HeaderInfo) {
         titleLabel.text = model.title
+        
         rightButton.sideButtonState = model.rightButtonState
         leftButton.sideButtonState = model.leftButtonState
     }

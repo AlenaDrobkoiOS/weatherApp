@@ -35,7 +35,7 @@ final class SearchCoordinator: Coordinator<SearchCoordinatorResult> {
                 .init(serviceHolder: serviceHolder))
         let controller = SearchViewController(viewModel: viewModel)
         
-        navigationController.present(controller, animated: false)
+        navigationController.present(controller, animated: true)
         
         let openDetailsEvent = viewModel.openDetails
             .map { city in

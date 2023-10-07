@@ -13,4 +13,10 @@ extension Date {
         formatter.unitsStyle = .full
         return formatter.localizedString(for: self, relativeTo: Date())
     }
+    
+    func getString() -> String {
+        let formater = DateFormatter()
+        formater.dateFormat = Constants.dateFormat
+        return formater.string(from: self)
+    }
 }

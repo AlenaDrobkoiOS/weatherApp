@@ -20,4 +20,11 @@ struct HeaderInfo {
         self.leftButtonState = leftButtonState
         self.rightButtonState = rightButtonState
     }
+    
+    init() {
+        title = ""
+        
+        leftButtonState = nil
+        rightButtonState = nil
+    }
 }

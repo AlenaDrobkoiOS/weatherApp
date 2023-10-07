@@ -37,9 +37,11 @@ final class CitySelectorCoordinator: Coordinator<Void> {
             .bind { result in
                 switch result {
                 case .dismiss:
-                    print("Details screen dismissed")
+                    print("Search screen dismissed")
                 case .details(let city):
-                    viewModel.openDetails.onNext(city)
+                    self.navigationController.visibleViewController?.dismiss(animated: true) {
+                        viewModel.openDetails.onNext(city)
+                    }
                 }
             }
             .disposed(by: disposeBag)
@@ -49,10 +51,10 @@ final class CitySelectorCoordinator: Coordinator<Void> {
                 self.openDetails(with: city)
             }
             .bind { result in
-                //                switch result {
-                //                case .dismiss:
-                //                    print("Details screen dismissed")
-                //                }
+                switch result {
+                case .dismiss:
+                    print("Details screen dismissed")
+                }
             }
             .disposed(by: disposeBag)
         
@@ -63,8 +65,13 @@ final class CitySelectorCoordinator: Coordinator<Void> {
         return .just(())
     }
     
-    private func openDetails(with city: City) -> Observable<Void> {
-        return .just(())
+    private func openDetails(with city: City) -> Observable<WeatherDetailCoordinatorResult> {
+        
+        let coordinator = WeatherDetailCoordinator(injections:
+                .init(navigationController: navigationController,
+                      serviceHolder: serviceHolder,
+                      city: city))
+        return coordinate(to: coordinator)
     }
     
     private func openSearch() -> Observable<SearchCoordinatorResult> {

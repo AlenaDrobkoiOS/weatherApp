@@ -18,6 +18,7 @@ struct Constants {
     
     static let inputDateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
     static let outputDateFormat = "MM/dd/yyyy"
+    static let dateFormat = "dd.MM.yyyy' - 'HH:mm"
     
     static let country = "us"
 }

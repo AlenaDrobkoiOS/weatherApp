@@ -34,6 +34,7 @@ final class CitySelectorViewModel: BaseCitySelectorViewModel {
         }
     }
     
+    private let headerInfo = BehaviorRelay<HeaderInfo>(value: .init())
     private var tableItems: BehaviorRelay<[CityCellModel]> = BehaviorRelay<[CityCellModel]>(value: [])
     private let isLoading = BehaviorRelay<Bool>(value: true)
     
