@@ -18,6 +18,6 @@ struct FooterViewInfo {
     
     init() {
         self.city = ""
-        self.date = Date()
+        self.date = .init()
     }
 }

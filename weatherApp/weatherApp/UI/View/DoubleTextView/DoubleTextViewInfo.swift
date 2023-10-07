@@ -7,17 +7,26 @@
 
 import Foundation
 
+enum DoubleTextViewInfoState {
+    case vertical
+    case horisontal
+}
+
 struct DoubleTextViewInfo {
+    let state: DoubleTextViewInfoState
+    
     let title: String
     let value: String
 
-    init(title: String, value: String) {
+    init(state: DoubleTextViewInfoState = .horisontal, title: String, value: String) {
         self.title = title
         self.value = value
+        self.state = state
     }
     
     init() {
         self.title = ""
         self.value = ""
+        self.state = .horisontal
     }
 }

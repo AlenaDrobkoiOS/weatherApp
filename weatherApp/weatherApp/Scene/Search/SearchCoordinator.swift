@@ -26,8 +26,8 @@ final class SearchCoordinator: Coordinator<SearchCoordinatorResult> {
     private let serviceHolder: ServiceHolder
     
     init(injections: Injections) {
-        self.navigationController = injections.navigationController
-        self.serviceHolder = injections.serviceHolder
+        navigationController = injections.navigationController
+        serviceHolder = injections.serviceHolder
     }
     
     override func start() -> Observable<SearchCoordinatorResult> {

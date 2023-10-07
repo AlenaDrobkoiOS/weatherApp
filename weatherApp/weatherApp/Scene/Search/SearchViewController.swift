@@ -19,29 +19,16 @@ final class SearchViewController: ViewController<BaseSearchViewModel> {
     private let backgroundView = BackgroundView()
     private let searchBar = UISearchBar()
     private let tableView = UITableView()
-    private let activityIndicatorView = UIActivityIndicatorView()
     
     private var dismissed = PublishSubject<Void>()
-    
-    private lazy var viewSpinner: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
-        let spinner = UIActivityIndicatorView()
-        
-        view.addSubview(spinner)
-        
-        spinner.center = view.center
-        spinner.startAnimating()
-        
-        return view
-    }()
-    
+
     // MARK: - Set Up VC
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         if isBeingDismissed {
-            self.dismissed.onNext(())
+            dismissed.onNext(())
         }
     }
     
@@ -86,10 +73,15 @@ final class SearchViewController: ViewController<BaseSearchViewModel> {
     override func setupView() {
         super.setupView()
         
-        searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
         searchBar.searchTextField.clearButtonMode = .never
         searchBar.showsCancelButton = true
+        
+        searchBar.rx.cancelButtonClicked
+            .bind { [weak self] _ in
+                self?.searchBar.text = ""
+        }
+        .disposed(by: disposeBag)
         
         searchBar.placeholder = Localizationable.Global.search.localized
         searchBar.prompt = Localizationable.Global.searchInfo.localized
@@ -152,11 +144,5 @@ final class SearchViewController: ViewController<BaseSearchViewModel> {
                     activityIndicatorView.stopAnimating()
                 }
             }
-    }
-}
-
-extension SearchViewController: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
     }
 }

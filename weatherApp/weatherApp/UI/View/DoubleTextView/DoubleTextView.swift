@@ -17,7 +17,7 @@ final class DoubleTextView: View {
     override func setupConstraints() {
         super.setupConstraints()
         
-        self.addSubview(stackView)
+        addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(valueLabel)
         
@@ -29,7 +29,6 @@ final class DoubleTextView: View {
     override func setupView() {
         super.setupView()
         
-        stackView.axis = .horizontal
         stackView.distribution = .fill
         
         titleLabel.font = Style.Font.boldText.withSize(12)
@@ -39,12 +38,24 @@ final class DoubleTextView: View {
         
         valueLabel.font = Style.Font.boldText.withSize(20)
         valueLabel.textColor = .tintColor
-        valueLabel.textAlignment = .right
         valueLabel.numberOfLines = 1
     }
     
     func render(with model: DoubleTextViewInfo) {
         titleLabel.text = model.title
         valueLabel.text = model.value
+        
+        switch model.state {
+        case .horisontal:
+            stackView.axis = .horizontal
+            stackView.spacing = 0
+            valueLabel.textAlignment = .right
+            titleLabel.addCharacterSpacing(kernValue: 0)
+        case .vertical:
+            stackView.axis = .vertical
+            stackView.spacing = 6
+            valueLabel.textAlignment = .left
+            titleLabel.addCharacterSpacing(kernValue: 2)
+        }
     }
 }

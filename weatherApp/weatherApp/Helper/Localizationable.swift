@@ -37,5 +37,6 @@ enum Localizationable {
         case temperature = "Global.temperature"
         case humidity = "Global.humidity"
         case windspeed = "Global.windspeed"
+        case historical = "Global.historical"
     }
 }

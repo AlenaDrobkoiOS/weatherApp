@@ -1,39 +1,36 @@
 //
-//  BaseWeatherDetailViewModel.swift
+//  BaseHistoricalViewModel.swift
 //  weatherApp
 //
 //  Created by Alena Drobko on 07.10.23.
 //
 
 import Foundation
-import Foundation
 import RxSwift
 import RxCocoa
 
-/// WeatherDetail screen base view model
-class BaseWeatherDetailViewModel: ViewModelProtocol {
+/// Historical screen base view model
+class BaseHistoricalViewModel: ViewModelProtocol {
     
     struct Injections {
         let serviceHolder: ServiceHolder
         let city: City
-        let historyInfo: HistoricalInfo?
     }
     
     internal struct Input {
-        let dismissTapped: Observable<Void>
-        let dismissed: Observable<Void>
+        let backTapped: Observable<Void>
+        let itemSelected: Observable<IndexPath>
         let disposeBag: DisposeBag
     }
     
     internal struct Output {
         let headerInfo: Observable<HeaderInfo>
-        let detailInfo: Observable<WeatherDetailInfoViewModel>
-        let footerInfo: Observable<FooterViewInfo>
+        let tableItems: Driver<[HistoricalInfo]>
         let isLoading: Observable<Bool>
     }
     
-    public var dismissTapped = PublishSubject<Void>()
-    public var dismissed = PublishSubject<Void>()
+    public var openDetails = PublishSubject<(City, HistoricalInfo)>()
+    public var dismiss = PublishSubject<Void>()
     
     init(injections: Injections) {}
     

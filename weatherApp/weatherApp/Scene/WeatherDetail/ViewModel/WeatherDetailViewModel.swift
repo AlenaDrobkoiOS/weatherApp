@@ -13,7 +13,7 @@ import RxCocoa
 final class WeatherDetailViewModel: BaseWeatherDetailViewModel {
     private let bag = DisposeBag()
     
-    private let city: City
+    private var city: City
     
     private let isLoading = BehaviorRelay<Bool>(value: false)
     private let headerInfo = BehaviorRelay<HeaderInfo>(value: .init())
@@ -21,22 +21,30 @@ final class WeatherDetailViewModel: BaseWeatherDetailViewModel {
     private let detailInfo = BehaviorRelay<WeatherDetailInfoViewModel>(value: .init())
     
     override init(injections: Injections) {
-        self.city = injections.city
+        city = injections.city
         
         super.init(injections: injections)
         
-        loadWeatherDetail()
-        
-        headerInfo.accept(.init(title: city.name,
-                                leftButtonState: .modal))
-        footerInfo.accept(.init(city: city.name, date: Date()))
-        detailInfo.accept(.init(iconURL: "",
-                                description: "test", windSpeeped: "34",
-                                humidity: "35", temperature: "36"))
+        if let historyInfo = injections.historyInfo {
+            headerInfo.accept(.init(title: city.name,
+                                    leftButtonState: .modal))
+            footerInfo.accept(.init(city: city.name,
+                                    date: historyInfo.date))
+            detailInfo.accept(historyInfo.weatherInfo)
+        } else {
+            loadWeatherDetail()
+            
+            headerInfo.accept(.init(title: city.name,
+                                    leftButtonState: .modal))
+            footerInfo.accept(.init(city: city.name, date: Date()))
+        }
     }
     
     private func loadWeatherDetail() {
         isLoading.accept(true)
+        detailInfo.accept(.init(iconURL: "",
+                                description: "test", windSpeeped: "34",
+                                humidity: "35", temperature: "36"))
         isLoading.accept(false)
     }
     

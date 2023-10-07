@@ -16,17 +16,13 @@ final class BackgroundView: View {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let gradient = CAGradientLayer()
-        gradient.frame = self.bounds
-        gradient.colors = [UIColor.white.cgColor,
-                           Style.Color.backgroundColor?.cgColor ?? UIColor.white]
-        backgroundView.layer.insertSublayer(gradient, at: 0)
+        reload()
     }
     
     override func setupConstraints() {
         super.setupConstraints()
         
-        self.addSubview(backgroundView)
+        addSubview(backgroundView)
         backgroundView.addSubview(backgroundImageView)
         
         backgroundView.snp.makeConstraints { make in
@@ -39,7 +35,21 @@ final class BackgroundView: View {
         }
     }
     
+    override func setupView() {
+        super.setupView()
+        
+        reload()
+    }
+    
     func addImage(_ image: UIImage?) {
         backgroundImageView.image = image
+    }
+    
+    func reload() {
+        let gradient = CAGradientLayer()
+        gradient.frame = bounds
+        gradient.colors = [Style.Color.lightBackgroundColor?.cgColor ?? UIColor.white,
+                           Style.Color.darkBackgroundColor?.cgColor ?? UIColor.white]
+        backgroundView.layer.insertSublayer(gradient, at: 0)
     }
 }

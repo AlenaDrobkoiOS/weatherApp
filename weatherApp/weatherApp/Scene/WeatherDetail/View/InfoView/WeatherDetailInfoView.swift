@@ -23,7 +23,7 @@ final class WeatherDetailInfoView: View {
     override func setupConstraints() {
         super.setupConstraints()
         
-        self.addSubview(stackView)
+        addSubview(stackView)
         [weatherImage, descriptionInfo, temperatureInfo, humidityInfo, windSpeedInfo]
             .forEach { view in
             stackView.addArrangedSubview(view)
@@ -42,8 +42,8 @@ final class WeatherDetailInfoView: View {
     override func setupView() {
         super.setupView()
         
-        self.backgroundColor = .white
-        self.addShadowAndRadius(shadowOpacity: 0.05, cornerRadius: 30)
+        backgroundColor = Style.Color.lightBackgroundColor
+        addShadowAndRadius(shadowOpacity: 0.05, cornerRadius: 30)
 
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing

@@ -17,7 +17,7 @@ final class FooterView: View {
     override func setupConstraints() {
         super.setupConstraints()
         
-        self.addSubview(stackView)
+        addSubview(stackView)
         stackView.addArrangedSubview(infoLabel)
         stackView.addArrangedSubview(dateLabel)
         

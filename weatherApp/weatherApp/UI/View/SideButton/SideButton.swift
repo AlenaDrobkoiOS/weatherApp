@@ -26,23 +26,23 @@ final class SideButton: UIButton {
     
     var sideButtonState: SideButtonState? {
         didSet {
-            self.backgroundColor = UIColor.tintColor
+            backgroundColor = UIColor.tintColor
             
             switch sideButtonState {
             case .left:
-                self.layer.maskedCorners = [.layerMaxXMaxYCorner,
-                                            .layerMaxXMinYCorner]
-                self.setImage(Style.Images.arrowLeft.image, for: .normal)
+                layer.maskedCorners = [.layerMaxXMaxYCorner,
+                                       .layerMaxXMinYCorner]
+                setImage(Style.Images.arrowLeft.image, for: .normal)
             case .right:
-                self.layer.maskedCorners = [.layerMinXMinYCorner,
-                                            .layerMinXMaxYCorner]
-                self.setImage(Style.Images.plus.image, for: .normal)
+                layer.maskedCorners = [.layerMinXMinYCorner,
+                                       .layerMinXMaxYCorner]
+                setImage(Style.Images.plus.image, for: .normal)
             case .modal:
-                self.layer.maskedCorners = [.layerMaxXMaxYCorner]
-                self.setImage(Style.Images.xmark.image, for: .normal)
+                layer.maskedCorners = [.layerMaxXMaxYCorner]
+                setImage(Style.Images.xmark.image, for: .normal)
             case .none:
-                self.backgroundColor = UIColor.clear
-                self.setImage(UIImage(), for: .normal)
+                backgroundColor = UIColor.clear
+                setImage(UIImage(), for: .normal)
             }
         }
     }
@@ -54,9 +54,9 @@ final class SideButton: UIButton {
     }
     
     func setUpUI() {
-        self.imageView?.tintColor = .white
-        self.imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+        imageView?.tintColor = .white
+        imageView?.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
         
-        self.addShadowAndRadius(shadowOpacity: 0.25, cornerRadius: 20)
+        addShadowAndRadius(shadowOpacity: 0.25, cornerRadius: 20)
     }
 }

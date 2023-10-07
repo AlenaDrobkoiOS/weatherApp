@@ -28,7 +28,7 @@ final class CityTableViewCell: TableViewCell {
         super.layoutSubviews()
         
         let insets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        self.contentView.frame = self.contentView.frame.inset(by: insets)
+        contentView.frame = contentView.frame.inset(by: insets)
     }
     
     override func setupConstraints() {
@@ -73,7 +73,6 @@ final class CityTableViewCell: TableViewCell {
         
         titleLabel.textColor = Style.Color.textColor
         titleLabel.font = Style.Font.boldText.withSize(15)
-        titleLabel.addCharacterSpacing(kernValue: 2)
         
         detailsButton.setImage(Style.Images.arrowRight.image, for: .normal)
         historyButton.setImage(Style.Images.info.image, for: .normal)
@@ -81,7 +80,8 @@ final class CityTableViewCell: TableViewCell {
     
     func render(_ model: CityCellModel) {
         titleLabel.text = model.title
-    
+        titleLabel.addCharacterSpacing(kernValue: 2)
+        
         detailsButton.isHidden = !model.isButtonsVisible
         historyButton.isHidden = !model.isButtonsVisible
         

@@ -49,16 +49,17 @@ struct Style {
     
     /// Contains different colors
     struct Color {
-        static let textColor = UIColor(named: "textColor")
-        static let backgroundColor = UIColor(named: "backgroundColor")
+        static let textColor = UIColor(named: "labelColor")
+        static let lightBackgroundColor = UIColor(named: "lightBackgroundColor")
+        static let darkBackgroundColor = UIColor(named: "darkBackgroundColor")
     }
     
     /// Contains different fonts
     struct Font {
-        static let boldText = UIFont.systemFont(ofSize: 24, weight: .bold)
-        static let semiboldText = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        static let mediumText = UIFont.systemFont(ofSize: 14, weight: .medium)
-        static let regularMidleText = UIFont.systemFont(ofSize: 16, weight: .regular)
-        static let regularSmallText = UIFont.systemFont(ofSize: 12, weight: .regular)
+        static let boldText = UIFont(name: "SFProText-Bold", size: 24) ?? .init()
+        static let semiboldText = UIFont(name: "SFProText-Semibold", size: 16) ?? .init()
+        static let mediumText = UIFont(name: "SFProText-Medium", size: 14) ?? .init()
+        static let regularMidleText = UIFont(name: "SFProText-Regular", size: 16) ?? .init()
+        static let regularSmallText = UIFont(name: "SFProText-Regular", size: 12) ?? .init()
     }
 }

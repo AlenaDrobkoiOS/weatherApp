@@ -19,8 +19,8 @@ final class CitySelectorCoordinator: Coordinator<Void> {
     private let serviceHolder: ServiceHolder
     
     init(injections: Injections) {
-        self.navigationController = injections.navigationController
-        self.serviceHolder = injections.serviceHolder
+        navigationController = injections.navigationController
+        serviceHolder = injections.serviceHolder
     }
     
     @discardableResult // ignore return value
@@ -29,6 +29,18 @@ final class CitySelectorCoordinator: Coordinator<Void> {
         let controller = CitySelectorViewController(viewModel: viewModel)
         
         navigationController.pushViewController(controller, animated: false)
+        
+        viewModel.openHistory
+            .flatMap { city in
+                self.openHistory(with: city)
+            }
+            .bind { result in
+                switch result {
+                case .dismiss:
+                    print("History screen dismissed")
+                }
+            }
+            .disposed(by: disposeBag)
         
         viewModel.openSearch
             .flatMap { _ in
@@ -61,12 +73,15 @@ final class CitySelectorCoordinator: Coordinator<Void> {
         return .never()
     }
     
-    private func openHistory(with city: City) -> Observable<Void> {
-        return .just(())
+    private func openHistory(with city: City) -> Observable<HistoricalCoordinatorResult> {
+        let coordinator = HistoricalCoordinator(injections:
+                .init(navigationController: navigationController,
+                      serviceHolder: serviceHolder,
+                      city: city))
+        return coordinate(to: coordinator)
     }
     
     private func openDetails(with city: City) -> Observable<WeatherDetailCoordinatorResult> {
-        
         let coordinator = WeatherDetailCoordinator(injections:
                 .init(navigationController: navigationController,
                       serviceHolder: serviceHolder,

@@ -19,7 +19,7 @@ final class HeaderView: View {
     override func setupConstraints() {
         super.setupConstraints()
         
-        self.addSubview(stackView)
+        addSubview(stackView)
         stackView.addArrangedSubview(leftButton)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(rightButton)
@@ -37,11 +37,11 @@ final class HeaderView: View {
     
     override func setupView() {
         super.setupView()
-        
+
         titleLabel.font = Style.Font.boldText.withSize(17)
         titleLabel.textColor = Style.Color.textColor
-        titleLabel.addCharacterSpacing(kernValue: 2)
         titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 0
         
         stackView.axis = .horizontal
         stackView.distribution = .fill
@@ -49,6 +49,7 @@ final class HeaderView: View {
     
     func render(with model: HeaderInfo) {
         titleLabel.text = model.title
+        titleLabel.addCharacterSpacing(kernValue: 2)
         
         rightButton.sideButtonState = model.rightButtonState
         leftButton.sideButtonState = model.leftButtonState

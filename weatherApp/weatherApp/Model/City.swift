@@ -11,4 +11,14 @@ import Foundation
 struct City: Codable {
     var id: String
     var name: String
+    
+    init(id: String, name: String) {
+        self.id = id
+        self.name = name
+    }
+    
+    init() {
+        self.id = ""
+        self.name = ""
+    }
 }

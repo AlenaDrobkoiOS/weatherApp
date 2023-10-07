@@ -21,3 +21,4 @@
 "Global.temperature" = "TEMPERATURE";
 "Global.humidity" = "HUMIDITY";
 "Global.windspeed" = "WINDSPEED";
+"Global.historical" = "HISTORICAL";

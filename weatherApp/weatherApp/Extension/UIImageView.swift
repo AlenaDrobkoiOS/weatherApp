@@ -13,7 +13,7 @@ extension UIImageView {
            let url = URL(string: path) {
             setImage(with: url)
         } else {
-            self.image = Style.Images.placeholder.image
+            image = Style.Images.placeholder.image
         }
     }
     

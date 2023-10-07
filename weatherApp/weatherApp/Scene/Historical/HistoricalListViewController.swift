@@ -1,5 +1,5 @@
 //
-//  CitySelectorViewController.swift
+//  HistoricalListViewController.swift
 //  weatherApp
 //
 //  Created by Alena Drobko on 07.10.23.
@@ -10,8 +10,8 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-/// CitySelector screen controller
-final class CitySelectorViewController: ViewController<BaseCitySelectorViewModel> {
+/// Historical screen controller
+final class HistoricalViewController: ViewController<BaseHistoricalViewModel> {
     
     // MARK: - UI elements
     
@@ -65,19 +65,15 @@ final class CitySelectorViewController: ViewController<BaseCitySelectorViewModel
         super.setupView()
         
         backgroundView.addImage(Style.Images.background.image)
-        
-        headerView.render(with:
-                .init(title: Localizationable.Global.cityTitle.localized,
-                      rightButtonState: .right))
     }
     
     override func setupScrollCollection() {
         super.setupScrollCollection()
         
-        tableView.registerCellClass(CityTableViewCell.self)
+        tableView.registerCellClass(HistoricalInfoTableViewCell.self)
         
         tableView.backgroundColor = .clear
-        tableView.estimatedRowHeight = 50
+        tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableView.automaticDimension
         tableView.showsVerticalScrollIndicator = false
         tableView.alwaysBounceVertical = false
@@ -86,29 +82,39 @@ final class CitySelectorViewController: ViewController<BaseCitySelectorViewModel
     override func setupOutput() {
         super.setupOutput()
         
-        let input = BaseCitySelectorViewModel.Input(
-            addTapped: headerView.rightButton.rx.tap.asObservable(),
-            citySelected: tableView.rx.itemSelected.asObservable(),
+        let input = BaseHistoricalViewModel.Input(
+            backTapped: headerView.leftButton.rx.tap.asObservable(),
+            itemSelected: tableView.rx.itemSelected.asObservable(),
             disposeBag: disposeBag)
         
         viewModel.transform(input, outputHandler: setupInput(input:))
     }
     
-    override func setupInput(input: BaseCitySelectorViewModel.Output) {
+    override func setupInput(input: BaseHistoricalViewModel.Output) {
         super.setupInput(input: input)
         
         disposeBag.insert(
+            setUpHeaderInfoObserving(with: input.headerInfo, headerView: headerView),
             setUpItemsObserving(with: input.tableItems, tableView: tableView),
             setUpLoadingObserving(with: input.isLoading,
                                   activityIndicatorView: activityIndicatorView)
         )
     }
     
-    private func setUpItemsObserving(with signal: Driver<[CityCellModel]>, tableView: UITableView) -> Disposable {
+    private func setUpHeaderInfoObserving(with signal: Observable<HeaderInfo>,
+                                          headerView: HeaderView) -> Disposable {
+        signal
+            .subscribe { headerInfo in
+                headerView.render(with: headerInfo)
+            }
+    }
+    
+    
+    private func setUpItemsObserving(with signal: Driver<[HistoricalInfo]>, tableView: UITableView) -> Disposable {
         signal
             .drive(tableView.rx.items) { tableView, row, viewModel in
                 let cell = tableView.dequeueReusableCell(
-                    ofType: CityTableViewCell.self,
+                    ofType: HistoricalInfoTableViewCell.self,
                     at: IndexPath(row: row, section: .zero)
                 )
                 cell.render(viewModel)
@@ -128,3 +134,4 @@ final class CitySelectorViewController: ViewController<BaseCitySelectorViewModel
             }
     }
 }
+

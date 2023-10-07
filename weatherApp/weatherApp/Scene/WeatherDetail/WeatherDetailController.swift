@@ -20,21 +20,8 @@ final class WeatherDetailViewController: ViewController<BaseWeatherDetailViewMod
     private let headerView = HeaderView()
     private let detailsView = WeatherDetailInfoView()
     private let footerView = FooterView()
-    private let activityIndicatorView = UIActivityIndicatorView()
     
     private var dismissed = PublishSubject<Void>()
-    
-    private lazy var viewSpinner: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
-        let spinner = UIActivityIndicatorView()
-        
-        view.addSubview(spinner)
-        
-        spinner.center = view.center
-        spinner.startAnimating()
-        
-        return view
-    }()
     
     // MARK: - Set Up VC
     
@@ -42,7 +29,7 @@ final class WeatherDetailViewController: ViewController<BaseWeatherDetailViewMod
         super.viewWillDisappear(animated)
         
         if isBeingDismissed {
-            self.dismissed.onNext(())
+            dismissed.onNext(())
         }
     }
     
@@ -80,7 +67,7 @@ final class WeatherDetailViewController: ViewController<BaseWeatherDetailViewMod
         }
         
         detailsView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(36)
+            make.top.equalTo(headerView.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalToSuperview().multipliedBy(0.5)
