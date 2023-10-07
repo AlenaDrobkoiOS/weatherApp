@@ -38,8 +38,9 @@ final class AppCoordinator: Coordinator<Void> {
     }
     
     private func coordinateToMain() {
-        let vc = UIViewController()
-        navigationController.pushViewController(vc, animated: true)
+        let mainCoordinator = CitySelectorCoordinator(injections: .init(navigationController: navigationController,
+                                                                serviceHolder: serviceHolder))
+       coordinate(to: mainCoordinator)
     }
     
     /// Init some services, add services to service holder

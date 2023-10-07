@@ -6,7 +6,6 @@
   
 */
 
-"Global.menuTitle" = "Change Category";
 "Global.error" = "Error";
 "Global.warning" = "Warning";
 "Global.OK" = "OK";
@@ -14,3 +13,4 @@
 "Global.urlWarning" = "Sorry, this url is not avaliable";
 "Global.noElementsWarning" = "No elements found";
 "Global.countWarning" = "Can't count elements";
+"Global.cityTitle" = "CITIES";

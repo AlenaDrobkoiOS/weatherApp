@@ -22,7 +22,7 @@ extension LocalizableDelegate {
 /// Helps with localization
 enum Localizationable {
     enum Global: String, LocalizableDelegate {
-        case menuTitle = "Global.menuTitle"
+        case cityTitle = "Global.cityTitle"
         case error = "Global.error"
         case warning = "Global.warning"
         case ok = "Global.OK"
