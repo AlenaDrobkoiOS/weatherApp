@@ -67,7 +67,7 @@ All libraries and frameworks used in the project are installed via CocoaPods.
 <p align="center">
   <img src="screenshots/screenshot4.2.png" alt="Screenshot 2" width="300" />
   <br />
-  <em>History Screen</em>
+  <em>History Screen (Dark)</em>
 </p>
 
 ## Features
