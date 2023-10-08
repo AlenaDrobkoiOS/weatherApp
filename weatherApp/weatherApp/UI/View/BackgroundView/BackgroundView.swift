@@ -48,8 +48,8 @@ final class BackgroundView: View {
     func reload() {
         let gradient = CAGradientLayer()
         gradient.frame = bounds
-        gradient.colors = [Style.Color.lightBackgroundColor?.cgColor ?? UIColor.white,
-                           Style.Color.darkBackgroundColor?.cgColor ?? UIColor.white]
+        gradient.colors = [Style.Color.lightBackgroundColor.cgColor,
+                           Style.Color.darkBackgroundColor.cgColor]
         backgroundView.layer.insertSublayer(gradient, at: 0)
     }
 }

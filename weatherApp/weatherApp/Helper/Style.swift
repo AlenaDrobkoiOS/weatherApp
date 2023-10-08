@@ -50,8 +50,12 @@ struct Style {
     /// Contains different colors
     struct Color {
         static let textColor = UIColor(named: "labelColor")
-        static let lightBackgroundColor = UIColor(named: "lightBackgroundColor")
-        static let darkBackgroundColor = UIColor(named: "darkBackgroundColor")
+        static var lightBackgroundColor: UIColor {
+            return UIColor(named: "lightBackgroundColor") ?? .white
+        }
+        static var darkBackgroundColor: UIColor {
+            UIColor(named: "darkBackgroundColor") ?? .black
+        }
     }
     
     /// Contains different fonts
