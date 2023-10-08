@@ -2,7 +2,7 @@
 //  ServiceHolder.swift
 //  weatherApp
 //
-//  Created by Alena Drobko on 07.10.2023..
+//  Created by Alena Drobko on 07.10.2023.
 //
 
 /// Service protocol

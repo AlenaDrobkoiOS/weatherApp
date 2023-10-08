@@ -46,7 +46,7 @@ final class CitySelectorViewModel: BaseCitySelectorViewModel {
     
     private func fetchCities() {
         isLoading.accept(true)
-        cities = [.init(id: "", name: "TEST, IOS")]
+        cities = [.init(id: 0, name: "TEST, IOS")]
         isLoading.accept(false)
     }
     

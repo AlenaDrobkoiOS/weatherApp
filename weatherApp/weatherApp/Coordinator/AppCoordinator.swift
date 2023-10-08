@@ -44,7 +44,13 @@ final class AppCoordinator: Coordinator<Void> {
     }
     
     /// Init some services, add services to service holder
-    private func setUpServices() {}
+    private func setUpServices() {
+        let weatherUseCase = UseCaseFactory.makeWeatherUseCase()
+        serviceHolder.add(WeatherUseCaseType.self, for: weatherUseCase)
+        
+        let alertService = AlertService()
+        serviceHolder.add(AlertServiceType.self, for: alertService)
+    }
     
     /// Set up navigation controller
     private func setUpNC() {

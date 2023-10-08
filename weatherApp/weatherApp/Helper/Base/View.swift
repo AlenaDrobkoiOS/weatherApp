@@ -37,11 +37,11 @@ class View: UIView, DeinitLoggerType {
         setupLocalization()
     }
     
-    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        setupView()
-    }
+//    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+//        
+//        setupView()
+//    }
     
     
     // MARK: - Fucntions

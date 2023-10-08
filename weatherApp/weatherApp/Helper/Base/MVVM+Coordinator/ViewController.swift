@@ -51,11 +51,11 @@ open class ViewController<ViewModel: ViewModelProtocol>: UIViewController,
         setupDeinitAnnouncer()
     }
     
-    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        setupView()
-    }
+//    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+//        
+//        setupView()
+//    }
     
     // MARK: - Life Cycle
     

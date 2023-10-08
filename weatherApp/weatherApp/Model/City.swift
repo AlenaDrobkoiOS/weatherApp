@@ -9,16 +9,16 @@ import Foundation
 
 /// City model for dispalying list of city
 struct City: Codable {
-    var id: String
+    var id: Int
     var name: String
     
-    init(id: String, name: String) {
+    init(id: Int, name: String) {
         self.id = id
         self.name = name
     }
     
     init() {
-        self.id = ""
+        self.id = 0
         self.name = ""
     }
 }

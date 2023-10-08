@@ -13,6 +13,9 @@ import RxCocoa
 final class SearchViewModel: BaseSearchViewModel {
     private let bag = DisposeBag()
     
+    private let weatherUseCase: WeatherUseCaseType
+    private let alertService: AlertServiceType
+    
     private var cities: [City] = [] {
         didSet {
             tableItems.accept(
@@ -25,6 +28,9 @@ final class SearchViewModel: BaseSearchViewModel {
     private let isLoading = BehaviorRelay<Bool>(value: false)
     
     override init(injections: Injections) {
+        weatherUseCase = injections.serviceHolder.get(by: WeatherUseCaseType.self)
+        alertService = injections.serviceHolder.get(by: AlertServiceType.self)
+        
         super.init(injections: injections)
     }
     
@@ -35,7 +41,14 @@ final class SearchViewModel: BaseSearchViewModel {
         }
         
         isLoading.accept(true)
-        cities = [.init(id: "", name: "TEST, IOS")]
+        weatherUseCase.getWeather(text)
+            .subscribe(onSuccess: { [weak self] element in
+                self?.cities = [City(id: element.id ?? 0, name: element.name ?? "n/a")]
+                self?.isLoading.accept(false)
+            }, onFailure: { [weak self] error in
+                self?.alertService.show.onNext(.error(error))
+            })
+            .disposed(by: bag)
         isLoading.accept(false)
     }
     
