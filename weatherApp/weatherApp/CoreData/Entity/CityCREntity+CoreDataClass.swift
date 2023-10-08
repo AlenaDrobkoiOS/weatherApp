@@ -2,7 +2,7 @@
 //  CityCREntity+CoreDataClass.swift
 //  
 //
-//  Created by Альона Дробко on 08.10.23.
+//  Created by Alena Drobko on 08.10.23.
 //
 //
 
