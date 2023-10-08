@@ -7,18 +7,20 @@
 
 import Foundation
 
-struct WeatherDetailInfoViewModel {
-    let iconURL: String?
+struct WeatherDetailInfoViewModel: Codable {
+    let iconID: String?
     
     let description: String
     let windSpeeped: String
     let humidity: String
     let temperature: String
     
-    init(iconURL: String?,
-         description: String, windSpeeped: String,
-         humidity: String, temperature: String) {
-        self.iconURL = iconURL
+    init(iconID: String?,
+         description: String,
+         windSpeeped: String,
+         humidity: String,
+         temperature: String) {
+        self.iconID = iconID
         
         self.description = description
         self.windSpeeped = windSpeeped
@@ -27,7 +29,7 @@ struct WeatherDetailInfoViewModel {
     }
     
     init() {
-        self.iconURL = nil
+        self.iconID = nil
         
         self.description = ""
         self.windSpeeped = ""

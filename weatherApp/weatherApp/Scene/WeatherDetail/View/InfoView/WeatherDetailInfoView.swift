@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 /// WeatherDetailInfoView - contains detail info about weather
 final class WeatherDetailInfoView: View {
@@ -47,18 +48,20 @@ final class WeatherDetailInfoView: View {
 
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
+        
+        weatherImage.contentMode = .scaleAspectFill
     }
     
     func render(with model: WeatherDetailInfoViewModel) {
-        weatherImage.setImage(with: model.iconURL)
+        weatherImage.setImage(with: Constants.getImageUrl(image: model.iconID))
         
         descriptionInfo.render(with: .init(title: Localizationable.Global.description.localized,
                                            value: model.description))
         temperatureInfo.render(with: .init(title: Localizationable.Global.temperature.localized,
-                                           value: model.temperature))
+                                           value: model.temperature + "° C"))
         humidityInfo.render(with: .init(title: Localizationable.Global.humidity.localized,
-                                        value: model.humidity))
+                                        value: model.humidity + "%"))
         windSpeedInfo.render(with: .init(title: Localizationable.Global.windspeed.localized,
-                                         value: model.windSpeeped))
+                                         value: model.windSpeeped + " km/h"))
     }
 }

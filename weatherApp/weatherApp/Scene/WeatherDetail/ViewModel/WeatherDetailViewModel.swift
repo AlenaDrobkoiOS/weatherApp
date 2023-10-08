@@ -13,6 +13,10 @@ import RxCocoa
 final class WeatherDetailViewModel: BaseWeatherDetailViewModel {
     private let bag = DisposeBag()
     
+    private let weatherUseCase: WeatherUseCaseType
+    private let synchronizationSerice: SynchronizationSericeType
+    private let alertService: AlertServiceType
+    
     private var city: City
     
     private let isLoading = BehaviorRelay<Bool>(value: false)
@@ -23,29 +27,43 @@ final class WeatherDetailViewModel: BaseWeatherDetailViewModel {
     override init(injections: Injections) {
         city = injections.city
         
+        weatherUseCase = injections.serviceHolder.get(by: WeatherUseCaseType.self)
+        alertService = injections.serviceHolder.get(by: AlertServiceType.self)
+        synchronizationSerice = injections.serviceHolder.get(by: SynchronizationSericeType.self)
+        
         super.init(injections: injections)
         
+        headerInfo.accept(.init(title: city.name + " " + city.country,
+                                leftButtonState: .modal))
+        
         if let historyInfo = injections.historyInfo {
-            headerInfo.accept(.init(title: city.name,
-                                    leftButtonState: .modal))
             footerInfo.accept(.init(city: city.name,
                                     date: historyInfo.date))
             detailInfo.accept(historyInfo.weatherInfo)
         } else {
-            loadWeatherDetail()
-            
-            headerInfo.accept(.init(title: city.name,
-                                    leftButtonState: .modal))
             footerInfo.accept(.init(city: city.name, date: Date()))
+            loadWeatherDetail()
         }
     }
     
     private func loadWeatherDetail() {
         isLoading.accept(true)
-        detailInfo.accept(.init(iconURL: "",
-                                description: "test", windSpeeped: "34",
-                                humidity: "35", temperature: "36"))
-        isLoading.accept(false)
+        
+        weatherUseCase.getWeather(city.name)
+            .subscribe(onSuccess: { [weak self] element in
+                let info = CityInfo(responce: element)
+                
+                self?.synchronizationSerice.addCityInfo(info) {
+                    if let info = info.history?.first {
+                        self?.detailInfo.accept(info.weatherInfo)
+                        self?.isLoading.accept(false)
+                    }
+                }
+            }, onFailure: { [weak self] error in
+                self?.isLoading.accept(false)
+                self?.alertService.show.onNext(.error(error))
+            })
+            .disposed(by: bag)
     }
     
     override func transform(_ input: Input, outputHandler: @escaping (Output) -> Void) {

@@ -41,7 +41,8 @@ final class FooterView: View {
     }
     
     func render(with model: FooterViewInfo) {
-        infoLabel.text = Localizationable.Global.footerText.localized.replacingOccurrences(of: "CITY", with: model.city)
+        infoLabel.text = Localizationable.Global.footerText.localized
+            .replacingOccurrences(of: "CITY", with: model.city)
         dateLabel.text = model.date.getString()
     }
 }

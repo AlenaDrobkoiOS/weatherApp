@@ -8,7 +8,8 @@
 import Foundation
 
 /// HistoricalInfo about weather in city at date
-struct HistoricalInfo {
+struct HistoricalInfo: Codable {
+    
     let weatherInfo: WeatherDetailInfoViewModel
     let date: Date
     
@@ -20,5 +21,11 @@ struct HistoricalInfo {
     init() {
         self.weatherInfo = .init()
         self.date = .init()
+    }
+}
+
+extension HistoricalInfo: Equatable {
+    static func == (lhs: HistoricalInfo, rhs: HistoricalInfo) -> Bool {
+        return lhs.date == rhs.date
     }
 }

@@ -37,6 +37,7 @@ final class CitySelectorCoordinator: Coordinator<Void> {
             .bind { result in
                 switch result {
                 case .dismiss:
+                    viewModel.reload.onNext(())
                     print("History screen dismissed")
                 }
             }
@@ -49,22 +50,26 @@ final class CitySelectorCoordinator: Coordinator<Void> {
             .bind { result in
                 switch result {
                 case .dismiss:
+                    viewModel.reload.onNext(())
                     print("Search screen dismissed")
-                case .details(let city):
+                case .details(let city, let historicalInfo):
+                    viewModel.reload.onNext(())
+                    
                     self.navigationController.visibleViewController?.dismiss(animated: true) {
-                        viewModel.openDetails.onNext(city)
+                        viewModel.openDetails.onNext((city, historicalInfo))
                     }
                 }
             }
             .disposed(by: disposeBag)
         
         viewModel.openDetails
-            .flatMap { city in
-                self.openDetails(with: city)
+            .flatMap { info in
+                self.openDetails(with: info.city, historyInfo: info.historicalInfo)
             }
             .bind { result in
                 switch result {
                 case .dismiss:
+                    viewModel.reload.onNext(())
                     print("Details screen dismissed")
                 }
             }
@@ -81,11 +86,12 @@ final class CitySelectorCoordinator: Coordinator<Void> {
         return coordinate(to: coordinator)
     }
     
-    private func openDetails(with city: City) -> Observable<WeatherDetailCoordinatorResult> {
+    private func openDetails(with city: City, historyInfo: HistoricalInfo?) -> Observable<WeatherDetailCoordinatorResult> {
         let coordinator = WeatherDetailCoordinator(injections:
                 .init(navigationController: navigationController,
                       serviceHolder: serviceHolder,
-                      city: city))
+                      city: city,
+                      historyInfo: historyInfo))
         return coordinate(to: coordinator)
     }
     

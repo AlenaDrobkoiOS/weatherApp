@@ -13,7 +13,7 @@ struct WeatherResponce: BaseResponseProtocol {
     var message: String? // A fuller description of the error, usually including how to fix it.
     
     var coord: Coord?
-    var weather: [Weather?]?
+    var weather: [Weather]?
     var base: String? // Internal parameter
     var main: Main?
     var visibility: Float? // Visibility, meter. The maximum value of the visibility is 10 km

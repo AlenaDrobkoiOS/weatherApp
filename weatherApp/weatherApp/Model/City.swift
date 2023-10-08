@@ -7,18 +7,21 @@
 
 import Foundation
 
-/// City model for dispalying list of city
-struct City: Codable {
+/// Simple city model
+struct City: Codable, Equatable {
     var id: Int
     var name: String
+    var country: String
     
-    init(id: Int, name: String) {
+    init(id: Int, name: String, country: String) {
         self.id = id
         self.name = name
+        self.country = country
     }
     
     init() {
         self.id = 0
         self.name = ""
+        self.country = ""
     }
 }

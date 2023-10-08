@@ -13,15 +13,17 @@ import RxCocoa
 final class CitySelectorViewModel: BaseCitySelectorViewModel {
     private let bag = DisposeBag()
     
+    private let synchronizationSerice: SynchronizationSericeType
+    
     private var cities: [City] = [] {
         didSet {
             tableItems.accept(
                 cities.map({ info in
-                    let model = CityCellModel(title: info.name,
+                    let model = CityCellModel(title: info.name + ", " + info.country,
                                               isButtonsVisible: true)
                     model.detailsTapObservable()
                         .bind(onNext: { [weak self] _ in
-                            self?.openDetails.onNext(info)
+                            self?.openDetails.onNext((city: info, historicalInfo: nil))
                         })
                         .disposed(by: bag)
                     model.historyTapObservable()
@@ -39,6 +41,8 @@ final class CitySelectorViewModel: BaseCitySelectorViewModel {
     private let isLoading = BehaviorRelay<Bool>(value: true)
     
     override init(injections: Injections) {
+        synchronizationSerice = injections.serviceHolder.get(by: SynchronizationSericeType.self)
+        
         super.init(injections: injections)
         
         fetchCities()
@@ -46,12 +50,16 @@ final class CitySelectorViewModel: BaseCitySelectorViewModel {
     
     private func fetchCities() {
         isLoading.accept(true)
-        cities = [.init(id: 0, name: "TEST, IOS")]
-        isLoading.accept(false)
+        
+        synchronizationSerice.getCities { list in
+            self.cities = list?.map({ $0.city }) ?? []
+            self.isLoading.accept(false)
+        }
     }
     
     override func transform(_ input: Input, outputHandler: @escaping (Output) -> Void) {
         input.disposeBag.insert([
+            setUpReload(with: reload),
             setUpAddTapped(with: input.addTapped),
             setUpCitySelected(with: input.citySelected)
         ])
@@ -70,13 +78,20 @@ final class CitySelectorViewModel: BaseCitySelectorViewModel {
             })
     }
     
+    private func setUpReload(with signal: Observable<Void>) -> Disposable {
+        signal
+            .bind(onNext: { [weak self] value in
+                self?.fetchCities()
+            })
+    }
+    
     private func setUpCitySelected(with signal: Observable<IndexPath>) -> Disposable {
         signal
             .bind(onNext: { [weak self] value in
                 guard let self = self else { return }
                 
                 if value.row < self.cities.count {
-                    self.openDetails.onNext(self.cities[value.row])
+                    self.openDetails.onNext((city:self.cities[value.row], historicalInfo: nil))
                 }
             })
     }

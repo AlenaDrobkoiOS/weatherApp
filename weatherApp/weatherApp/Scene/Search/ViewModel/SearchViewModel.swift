@@ -14,13 +14,14 @@ final class SearchViewModel: BaseSearchViewModel {
     private let bag = DisposeBag()
     
     private let weatherUseCase: WeatherUseCaseType
+    private let synchronizationSerice: SynchronizationSericeType
     private let alertService: AlertServiceType
     
-    private var cities: [City] = [] {
+    private var cities: [CityInfo] = [] {
         didSet {
-            tableItems.accept(
-                cities.map({ CityCellModel(title: $0.name,
-                                           isButtonsVisible: false) }))
+            tableItems.accept( cities.map({
+                CityCellModel(title: $0.city.name + ", " + $0.city.country,
+                              isButtonsVisible: false) }))
         }
     }
     
@@ -30,6 +31,7 @@ final class SearchViewModel: BaseSearchViewModel {
     override init(injections: Injections) {
         weatherUseCase = injections.serviceHolder.get(by: WeatherUseCaseType.self)
         alertService = injections.serviceHolder.get(by: AlertServiceType.self)
+        synchronizationSerice = injections.serviceHolder.get(by: SynchronizationSericeType.self)
         
         super.init(injections: injections)
     }
@@ -43,13 +45,17 @@ final class SearchViewModel: BaseSearchViewModel {
         isLoading.accept(true)
         weatherUseCase.getWeather(text)
             .subscribe(onSuccess: { [weak self] element in
-                self?.cities = [City(id: element.id ?? 0, name: element.name ?? "n/a")]
-                self?.isLoading.accept(false)
+                let info = CityInfo(responce: element)
+                
+                self?.synchronizationSerice.addCityInfo(info) {
+                    self?.cities = [info]
+                    self?.isLoading.accept(false)
+                }
             }, onFailure: { [weak self] error in
+                self?.isLoading.accept(false)
                 self?.alertService.show.onNext(.error(error))
             })
             .disposed(by: bag)
-        isLoading.accept(false)
     }
     
     override func transform(_ input: Input, outputHandler: @escaping (Output) -> Void) {
@@ -80,7 +86,8 @@ final class SearchViewModel: BaseSearchViewModel {
                 guard let self = self else { return }
                 
                 if value.row < self.cities.count {
-                    self.openDetails.onNext(self.cities[value.row])
+                    self.openDetails.onNext((city: self.cities[value.row].city,
+                                             historicalInfo: self.cities[value.row].history?.first))
                 }
             })
     }

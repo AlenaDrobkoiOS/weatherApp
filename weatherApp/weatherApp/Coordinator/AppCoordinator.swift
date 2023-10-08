@@ -18,6 +18,7 @@ final class AppCoordinator: Coordinator<Void> {
     private let window: UIWindow
     
     private var navigationController = UINavigationController()
+    private var dataController = DataController(completionClosure: {})
     private var serviceHolder = ServiceHolder()
     
     init(injections: Injections) {
@@ -35,6 +36,7 @@ final class AppCoordinator: Coordinator<Void> {
     private func setUp() {
         setUpNC()
         setUpServices()
+        startCoreData()
     }
     
     private func coordinateToMain() {
@@ -50,6 +52,15 @@ final class AppCoordinator: Coordinator<Void> {
         
         let alertService = AlertService()
         serviceHolder.add(AlertServiceType.self, for: alertService)
+    }
+    
+    private func startCoreData() {
+        let historyActivityDAO = GenericDAO<HistoricalInfo, WeatherInfoCREntity>(context: dataController.backgroundContext)
+        let cityDAO = CityModelDAO(context: dataController.backgroundContext,
+                                   historyDAO: historyActivityDAO)
+        let syncService = SynchronizationSerice(historyActivityDAO: historyActivityDAO,
+                                                cityDAO: cityDAO)
+        serviceHolder.add(SynchronizationSericeType.self, for: syncService)
     }
     
     /// Set up navigation controller

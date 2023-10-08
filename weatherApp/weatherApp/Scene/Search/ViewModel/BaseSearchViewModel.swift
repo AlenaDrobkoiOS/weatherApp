@@ -30,7 +30,7 @@ class BaseSearchViewModel: ViewModelProtocol {
         let isLoading: Observable<Bool>
     }
     
-    public var openDetails = PublishSubject<City>()
+    public var openDetails = PublishSubject<(city: City, historicalInfo: HistoricalInfo?)>()
     public var dismissed = PublishSubject<Void>()
     
     init(injections: Injections) {}

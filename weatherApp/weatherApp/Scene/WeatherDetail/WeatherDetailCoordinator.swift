@@ -51,12 +51,12 @@ final class WeatherDetailCoordinator: Coordinator<WeatherDetailCoordinatorResult
         navigationController.present(controller, animated: true)
         
         let dismissEvent = viewModel.dismissTapped
-            .do(onNext: { 
+            .do(onNext: {
                 controller.dismiss(animated: true)
             })
-                .map { city in
-                    return WeatherDetailCoordinatorResult.dismiss
-                }
+            .map { city in
+                return WeatherDetailCoordinatorResult.dismiss
+            }
         
         
         let dismissedEvent = viewModel.dismissed

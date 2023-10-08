@@ -105,7 +105,8 @@ final class SearchViewController: ViewController<BaseSearchViewModel> {
         let input = BaseSearchViewModel.Input(
             cancelTapped: searchBar.rx.cancelButtonClicked.asObservable(),
             citySelected: tableView.rx.itemSelected.asObservable(),
-            textUpdated: searchBar.rx.searchButtonClicked.map({ return self.searchBar.text }).asObservable(),
+            textUpdated: searchBar.rx.searchButtonClicked
+                .map({ return self.searchBar.text }).asObservable(),
             dismissed: dismissed.asObserver(),
             disposeBag: disposeBag)
         

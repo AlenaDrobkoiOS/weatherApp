@@ -27,9 +27,11 @@ class BaseCitySelectorViewModel: ViewModelProtocol {
         let isLoading: Observable<Bool>
     }
     
-    public var openDetails = PublishSubject<City>()
-    public var openHistory = PublishSubject<City>()
-    public var openSearch = PublishSubject<Void>()
+    public let openDetails = PublishSubject<(city: City, historicalInfo: HistoricalInfo?)>()
+    public let openHistory = PublishSubject<City>()
+    public let openSearch = PublishSubject<Void>()
+    
+    public let reload = PublishSubject<Void>()
     
     init(injections: Injections) {}
     

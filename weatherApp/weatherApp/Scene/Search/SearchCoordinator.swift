@@ -11,7 +11,7 @@ import RxSwift
 
 /// Search screen coordinator result: details or dismiss
 enum SearchCoordinatorResult {
-    case details(City)
+    case details(city: City, historicalInfo: HistoricalInfo?)
     case dismiss
 }
 
@@ -38,8 +38,9 @@ final class SearchCoordinator: Coordinator<SearchCoordinatorResult> {
         navigationController.present(controller, animated: true)
         
         let openDetailsEvent = viewModel.openDetails
-            .map { city in
-                return SearchCoordinatorResult.details(city)
+            .map { info in
+                return SearchCoordinatorResult.details(city: info.city,
+                                                       historicalInfo: info.historicalInfo)
             }
         
         let dismissEvent = viewModel.dismissed

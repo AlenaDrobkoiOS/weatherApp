@@ -13,6 +13,8 @@ import RxCocoa
 final class HistoricalViewModel: BaseHistoricalViewModel {
     private let bag = DisposeBag()
     
+    private let synchronizationSerice: SynchronizationSericeType
+    
     private let city: City
     private var info: [HistoricalInfo] = [] {
         didSet {
@@ -26,20 +28,21 @@ final class HistoricalViewModel: BaseHistoricalViewModel {
     
     override init(injections: Injections) {
         city = injections.city
+        synchronizationSerice = injections.serviceHolder.get(by: SynchronizationSericeType.self)
         
         super.init(injections: injections)
         
-        fetchHistory()
         headerInfo.accept(.init(title: city.name + "\n" + Localizationable.Global.historical.localized,
                                 leftButtonState: .left))
+        fetchHistory()
     }
     
     private func fetchHistory() {
         isLoading.accept(true)
-        info = [.init(weatherInfo: .init(iconURL: "",
-                                         description: "test", windSpeeped: "234",
-                                         humidity: "332", temperature: "23"), date: .init())]
-        isLoading.accept(false)
+        synchronizationSerice.getCityHistory(for: city) { [weak self] history in
+            self?.info = history ?? []
+            self?.isLoading.accept(false)
+        }
     }
     
     override func transform(_ input: Input, outputHandler: @escaping (Output) -> Void) {
@@ -69,7 +72,7 @@ final class HistoricalViewModel: BaseHistoricalViewModel {
                 guard let self = self else { return }
                 
                 if value.row < info.count {
-                    self.openDetails.onNext((city, info[value.row]))
+                    self.openDetails.onNext((city: city, historicalInfo: info[value.row]))
                 }
             })
     }

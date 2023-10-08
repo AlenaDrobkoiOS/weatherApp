@@ -24,4 +24,10 @@ struct Constants {
     static let lang = "en"
     static let mode = "JSON"
     static let units = "metric"
+    
+    static func getImageUrl(image: String?) -> String {
+        let text = "http://openweathermap.org/img/w/<ICON_ID>.png"
+        let image = image ?? ""
+        return text.replacingOccurrences(of: "<ICON_ID>", with: image)
+    }
 }

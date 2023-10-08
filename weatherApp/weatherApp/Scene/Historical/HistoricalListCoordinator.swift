@@ -58,12 +58,12 @@ final class HistoricalCoordinator: Coordinator<HistoricalCoordinatorResult> {
             }
     }
     
-    private func openDetails(with info: (city: City, historyInfo: HistoricalInfo)) -> Observable<WeatherDetailCoordinatorResult> {
+    private func openDetails(with info: (city: City, historicalInfo: HistoricalInfo)) -> Observable<WeatherDetailCoordinatorResult> {
         let coordinator = WeatherDetailCoordinator(injections:
                 .init(navigationController: navigationController,
                       serviceHolder: serviceHolder,
                       city: info.city,
-                      historyInfo: info.historyInfo))
+                      historyInfo: info.historicalInfo))
         return coordinate(to: coordinator)
     }
 }

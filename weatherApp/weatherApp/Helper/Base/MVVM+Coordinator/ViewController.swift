@@ -51,11 +51,11 @@ open class ViewController<ViewModel: ViewModelProtocol>: UIViewController,
         setupDeinitAnnouncer()
     }
     
-//    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-//        super.traitCollectionDidChange(previousTraitCollection)
-//        
-//        setupView()
-//    }
+    override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        setupView()
+    }
     
     // MARK: - Life Cycle
     
@@ -72,7 +72,7 @@ open class ViewController<ViewModel: ViewModelProtocol>: UIViewController,
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+    
         setupNavigationBar()
     }
     

@@ -29,7 +29,7 @@ class BaseHistoricalViewModel: ViewModelProtocol {
         let isLoading: Observable<Bool>
     }
     
-    public var openDetails = PublishSubject<(City, HistoricalInfo)>()
+    public var openDetails = PublishSubject<(city: City, historicalInfo: HistoricalInfo)>()
     public var dismiss = PublishSubject<Void>()
     
     init(injections: Injections) {}
