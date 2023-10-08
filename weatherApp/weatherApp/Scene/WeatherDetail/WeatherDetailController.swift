@@ -114,6 +114,7 @@ final class WeatherDetailViewController: ViewController<BaseWeatherDetailViewMod
         signal
             .subscribe { isLoading in
                 guard let isLoading = isLoading.element else { return }
+                
                 if isLoading {
                     activityIndicatorView.startAnimating()
                 } else {

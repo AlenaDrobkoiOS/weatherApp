@@ -120,6 +120,7 @@ final class CitySelectorViewController: ViewController<BaseCitySelectorViewModel
         signal
             .subscribe { isLoading in
                 guard let isLoading = isLoading.element else { return }
+                
                 if isLoading {
                     activityIndicatorView.startAnimating()
                 } else {

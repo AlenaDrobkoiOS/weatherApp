@@ -16,18 +16,22 @@ struct Constants {
         return url
     }
     
-    static let inputDateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-    static let outputDateFormat = "MM/dd/yyyy"
-    
-    static let dateFormat = "dd.MM.yyyy' - 'HH:mm"
-    
-    static let lang = "en"
-    static let mode = "JSON"
-    static let units = "metric"
-    
     static func getImageUrl(image: String?) -> String {
         let text = "http://openweathermap.org/img/w/<ICON_ID>.png"
         let image = image ?? ""
         return text.replacingOccurrences(of: "<ICON_ID>", with: image)
     }
+    
+    static let lang = "en"
+    static let mode = "JSON"
+    static let units = "metric"
+    
+    static let inputDateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    static let outputDateFormat = "MM/dd/yyyy"
+    
+    static let dateFormat = "dd.MM.yyyy' - 'HH:mm"
+    
+    static let celsium = "° C"
+    static let persent = "%"
+    static let speed = " km/h"
 }

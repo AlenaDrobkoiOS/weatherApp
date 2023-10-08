@@ -31,8 +31,7 @@ final class SearchCoordinator: Coordinator<SearchCoordinatorResult> {
     }
     
     override func start() -> Observable<SearchCoordinatorResult> {
-        let viewModel = SearchViewModel(injections:
-                .init(serviceHolder: serviceHolder))
+        let viewModel = SearchViewModel(injections: .init(serviceHolder: serviceHolder))
         let controller = SearchViewController(viewModel: viewModel)
         
         navigationController.present(controller, animated: true)

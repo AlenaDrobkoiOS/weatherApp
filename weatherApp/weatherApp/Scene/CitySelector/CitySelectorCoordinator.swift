@@ -49,15 +49,14 @@ final class CitySelectorCoordinator: Coordinator<Void> {
             }
             .bind { result in
                 switch result {
-                case .dismiss:
-                    viewModel.reload.onNext(())
-                    print("Search screen dismissed")
                 case .details(let city, let historicalInfo):
                     viewModel.reload.onNext(())
-                    
                     self.navigationController.visibleViewController?.dismiss(animated: true) {
                         viewModel.openDetails.onNext((city, historicalInfo))
                     }
+                case .dismiss:
+                    viewModel.reload.onNext(())
+                    print("Search screen dismissed")
                 }
             }
             .disposed(by: disposeBag)

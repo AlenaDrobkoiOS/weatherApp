@@ -58,7 +58,6 @@ final class WeatherDetailCoordinator: Coordinator<WeatherDetailCoordinatorResult
                 return WeatherDetailCoordinatorResult.dismiss
             }
         
-        
         let dismissedEvent = viewModel.dismissed
             .map { city in
                 return WeatherDetailCoordinatorResult.dismiss

@@ -58,10 +58,10 @@ final class WeatherDetailInfoView: View {
         descriptionInfo.render(with: .init(title: Localizationable.Global.description.localized,
                                            value: model.description))
         temperatureInfo.render(with: .init(title: Localizationable.Global.temperature.localized,
-                                           value: model.temperature + "° C"))
+                                           value: model.temperature + Constants.celsium))
         humidityInfo.render(with: .init(title: Localizationable.Global.humidity.localized,
-                                        value: model.humidity + "%"))
+                                        value: model.humidity + Constants.persent))
         windSpeedInfo.render(with: .init(title: Localizationable.Global.windspeed.localized,
-                                         value: model.windSpeeped + " km/h"))
+                                         value: model.windSpeeped + Constants.speed))
     }
 }

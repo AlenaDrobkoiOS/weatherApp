@@ -464,8 +464,8 @@
 		955DFF2B2AD2922E00B42722 /* Responce */ = {
 			isa = PBXGroup;
 			children = (
-				955DFF2C2AD2922E00B42722 /* WeatherResponce.swift */,
 				955DFF2D2AD2922E00B42722 /* BaseResponce.swift */,
+				955DFF2C2AD2922E00B42722 /* WeatherResponce.swift */,
 				955DFF2E2AD2922E00B42722 /* NetworkError.swift */,
 			);
 			path = Responce;
@@ -665,9 +665,9 @@
 		95F879152AD13E6F0007A608 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				955DFF262AD2922E00B42722 /* NetworkProvider.swift */,
 				955DFF242AD2922E00B42722 /* Endpoint */,
 				955DFF272AD2922E00B42722 /* Model */,
-				955DFF262AD2922E00B42722 /* NetworkProvider.swift */,
 				955DFF1E2AD2922E00B42722 /* TokenProvider */,
 				955DFF212AD2922E00B42722 /* UseCase */,
 				955DFF1D2AD2922E00B42722 /* UseCaseFactory.swift */,

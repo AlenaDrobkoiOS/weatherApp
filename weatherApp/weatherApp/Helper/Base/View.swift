@@ -39,10 +39,8 @@ class View: UIView, DeinitLoggerType {
     
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
         setupView()
     }
-    
     
     // MARK: - Fucntions
     

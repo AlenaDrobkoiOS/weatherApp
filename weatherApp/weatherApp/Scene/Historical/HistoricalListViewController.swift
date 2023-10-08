@@ -126,6 +126,7 @@ final class HistoricalViewController: ViewController<BaseHistoricalViewModel> {
         signal
             .subscribe { isLoading in
                 guard let isLoading = isLoading.element else { return }
+                
                 if isLoading {
                     activityIndicatorView.startAnimating()
                 } else {

@@ -19,7 +19,6 @@ extension CityCREntity {
     @NSManaged public var name: String?
     @NSManaged public var country: String?
     @NSManaged public var history: Set<WeatherInfoCREntity>?
-
 }
 
 // MARK: Generated accessors for history

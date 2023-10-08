@@ -53,7 +53,6 @@ open class ViewController<ViewModel: ViewModelProtocol>: UIViewController,
     
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
         setupView()
     }
     

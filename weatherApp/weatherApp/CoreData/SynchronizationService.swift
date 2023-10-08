@@ -56,6 +56,7 @@ class SynchronizationSerice: SynchronizationSericeType {
     /// get all history for city from local storage
     func getCityHistory(for city: City, completion: @escaping (_ activity: [HistoricalInfo]?) -> Void) {
         let predicate = NSPredicate(format: "city.id == %d", Int64(city.id))
-        historyActivityDAO.get(predicate, nil, nil, completion: completion)
+        let sort = NSSortDescriptor(key: "date", ascending: false)
+        historyActivityDAO.get(predicate, sort, nil, completion: completion)
     }
 }

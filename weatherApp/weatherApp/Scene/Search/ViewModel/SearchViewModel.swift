@@ -46,7 +46,6 @@ final class SearchViewModel: BaseSearchViewModel {
         weatherUseCase.getWeather(text)
             .subscribe(onSuccess: { [weak self] element in
                 let info = CityInfo(responce: element)
-                
                 self?.synchronizationSerice.addCityInfo(info) {
                     self?.cities = [info]
                     self?.isLoading.accept(false)

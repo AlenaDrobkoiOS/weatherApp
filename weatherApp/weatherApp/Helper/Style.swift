@@ -51,10 +51,14 @@ struct Style {
     struct Color {
         static let textColor = UIColor(named: "labelColor")
         static var lightBackgroundColor: UIColor {
-            return UIColor(named: "lightBackgroundColor") ?? .white
+            return UIColor(named: "lightBackground",
+                           in: .main,
+                           compatibleWith: .current) ?? .white
         }
         static var darkBackgroundColor: UIColor {
-            UIColor(named: "darkBackgroundColor") ?? .black
+            return UIColor(named: "darkBackground",
+                           in: .main,
+                           compatibleWith: .current) ?? .black
         }
     }
     

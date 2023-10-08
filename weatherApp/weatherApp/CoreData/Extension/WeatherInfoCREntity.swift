@@ -12,13 +12,12 @@ extension WeatherInfoCREntity: PlainObjectConvertible {
     typealias PlainObject = HistoricalInfo
     
     func toPlainObject() -> HistoricalInfo {
-        
-        return HistoricalInfo.init(weatherInfo: .init(iconID: self.iconUrl,
-                                                      description: self.weatherDescription ?? "n/a",
-                                                      windSpeeped: self.windSpeed ?? "n/a",
-                                                      humidity: self.humidity ?? "n/a",
-                                                      temperature: self.temperature ?? "n/a"),
-                                   date: self.date ?? Date())
+        return HistoricalInfo(weatherInfo: .init(iconID: self.iconUrl,
+                                                 description: self.weatherDescription ?? "n/a",
+                                                 windSpeeped: self.windSpeed ?? "n/a",
+                                                 humidity: self.humidity ?? "n/a",
+                                                 temperature: self.temperature ?? "n/a"),
+                              date: self.date ?? Date())
     }
 }
 

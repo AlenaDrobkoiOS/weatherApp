@@ -84,7 +84,8 @@ class GenericDAO<T: ManagedObjectConvertible, M: NSManagedObject>: DataAccessObj
     /// Search by predicate and return completion with array of PlainObject
     func get(_ predicate: NSPredicate, _ sort: NSSortDescriptor?, _ fetchLimit: Int?,
              completion: SimpleClosure<[T]?>?) {
-        if let records = M.findByPredicate(context: context, predicate: predicate, sort: sort, fetchLimit: fetchLimit) as? [M] {
+        if let records = M.findByPredicate(context: context, predicate: predicate, sort: sort,
+                                           fetchLimit: fetchLimit) as? [M] {
             let entities = records.map { record -> M.PlainObject in
                 return record.toPlainObject()
             }

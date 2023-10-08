@@ -45,6 +45,15 @@ final class AppCoordinator: Coordinator<Void> {
        coordinate(to: mainCoordinator)
     }
     
+    /// Set up navigation controller
+    private func setUpNC() {
+        navigationController.navigationBar.barTintColor = .white
+        navigationController.setNavigationBarHidden(true, animated: false)
+        
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+    }
+    
     /// Init some services, add services to service holder
     private func setUpServices() {
         let weatherUseCase = UseCaseFactory.makeWeatherUseCase()
@@ -61,14 +70,5 @@ final class AppCoordinator: Coordinator<Void> {
         let syncService = SynchronizationSerice(historyActivityDAO: historyActivityDAO,
                                                 cityDAO: cityDAO)
         serviceHolder.add(SynchronizationSericeType.self, for: syncService)
-    }
-    
-    /// Set up navigation controller
-    private func setUpNC() {
-        navigationController.navigationBar.barTintColor = .white
-        navigationController.setNavigationBarHidden(true, animated: false)
-        
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
     }
 }

@@ -46,6 +46,7 @@ final class BackgroundView: View {
     }
     
     func reload() {
+        
         let gradient = CAGradientLayer()
         gradient.frame = bounds
         gradient.colors = [Style.Color.lightBackgroundColor.cgColor,

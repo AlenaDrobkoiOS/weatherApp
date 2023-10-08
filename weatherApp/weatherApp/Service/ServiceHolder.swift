@@ -10,7 +10,7 @@ public protocol Service {}
 
 /// Service Holder
 public final class ServiceHolder {
-    /// Services dictionary/// Services dictionary
+    /// Services dictionary
     private var servicesDictionary: [String: Service] = [:]
     
     /// add Service
