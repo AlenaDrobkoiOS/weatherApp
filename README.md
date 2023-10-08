@@ -23,25 +23,49 @@ All libraries and frameworks used in the project are installed via CocoaPods.
 ## Screenshots
 
 <p align="center">
-  <img src="screenshots/screenshot1.png" alt="Screenshot 1" width="300" />
+  <img src="screenshots/screenshot1.1.png" alt="Screenshot 1" width="300" />
   <br />
-  <em>City Selector Screen</em>
+  <em>City Selector Screen (Light)</em>
 </p>
 
 <p align="center">
-  <img src="screenshots/screenshot2.png" alt="Screenshot 2" width="300" />
+  <img src="screenshots/screenshot1.2.png" alt="Screenshot 1" width="300" />
   <br />
-  <em>Search Screen</em>
+  <em>City Selector Screen (Dark)</em>
 </p>
 
 <p align="center">
-  <img src="screenshots/screenshot3.png" alt="Screenshot 2" width="300" />
+  <img src="screenshots/screenshot2.1.png" alt="Screenshot 2" width="300" />
   <br />
-  <em>Details Screen</em>
+  <em>Search Screen (Light)</em>
 </p>
 
 <p align="center">
-  <img src="screenshots/screenshot4.png" alt="Screenshot 2" width="300" />
+  <img src="screenshots/screenshot2.2.png" alt="Screenshot 2" width="300" />
+  <br />
+  <em>Search Screen (Dark)</em>
+</p>
+
+<p align="center">
+  <img src="screenshots/screenshot3.1.png" alt="Screenshot 2" width="300" />
+  <br />
+  <em>Details Screen (Light)</em>
+</p>
+
+<p align="center">
+  <img src="screenshots/screenshot3.2.png" alt="Screenshot 2" width="300" />
+  <br />
+  <em>Details Screen (Dark)</em>
+</p>
+
+<p align="center">
+  <img src="screenshots/screenshot4.1.png" alt="Screenshot 2" width="300" />
+  <br />
+  <em>History Screen (Light)</em>
+</p>
+
+<p align="center">
+  <img src="screenshots/screenshot4.2.png" alt="Screenshot 2" width="300" />
   <br />
   <em>History Screen</em>
 </p>
